@@ -21,7 +21,7 @@ scaler = None
 
 
 def get_model():
-    """Lazy-load the XGBoost model and scaler once."""
+    
     global model, scaler
     if model is None or scaler is None:
         print("Loading model and scaler...")
@@ -29,14 +29,14 @@ def get_model():
             # Load XGBoost model
             model = xgb.Booster()
             model.load_model('xgb_breastcare.json')
-            print("✅ XGBoost model loaded successfully!")
+            print(" XGBoost model loaded successfully!")
 
             # Load scaler
             scaler = joblib.load('scaler.pkl')
-            print("✅ Scaler loaded successfully!")
+            print(" Scaler loaded successfully!")
 
         except Exception as e:
-            print(f"❌ Error loading models: {e}")
+            print(f" Error loading models: {e}")
             raise e
     return model, scaler
 
@@ -113,10 +113,10 @@ if __name__ == "__main__":
     # Pre-load models to check if they work
     try:
         get_model()
-        print("✅ Models loaded successfully during startup!")
+        print("Models loaded successfully during startup!")
     except Exception as e:
-        print(f"❌ Model loading failed: {e}")
+        print(f"Model loading failed: {e}")
 
     port = int(os.environ.get('PORT', 5000))
-    print(f"🚀 Starting Flask server on port {port}")
+    print(f"Starting Flask server on port {port}")
     app.run(host='0.0.0.0', port=port, debug=False)
